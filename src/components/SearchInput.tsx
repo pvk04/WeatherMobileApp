@@ -31,7 +31,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ addCity }) => {
 
 	return (
 		<View>
-			<TextInput style={styles.searchInput} placeholder="Добавить город" onChangeText={handleSearchChange} value={searchCity} />
+			<TextInput style={styles.searchInput} placeholder="Найти город" onChangeText={handleSearchChange} value={searchCity} />
 			<FlatList
 				style={styles.suggestionsContainer}
 				data={suggestions}

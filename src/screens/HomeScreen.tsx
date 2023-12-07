@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { View, FlatList } from "react-native";
 import { NavigationProp } from "@react-navigation/native";
-import SearchInput from "../components/SearchInput";
-import WeatherBox from "../components/WeatherBox";
 import { addCityDb } from "../services/addCityDb";
 import { getCitiesDb } from "../services/getCitiesDb";
 import { deleteCityDb } from "../services/deleteCityDb";
-
+import SearchInput from "../components/SearchInput";
+import WeatherBox from "../components/WeatherBox";
 interface HomeScreenProps {
 	navigation: NavigationProp<any>;
 }
@@ -41,28 +40,16 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 	return (
 		<View>
 			<SearchInput addCity={handleAddCity} />
-			<View style={styles.weatherBoxes}>
-				{cityKeys.map((cityItem) => (
-					<WeatherBox
-						cityId={cityItem.id}
-						cityName={cityItem.name}
-						cityKey={cityItem.key}
-						deleteCity={handleDeleteCity}
-						key={cityItem.key}
-					/>
-				))}
-			</View>
+			<FlatList
+				data={cityKeys}
+				renderItem={({ item }) => (
+					<WeatherBox cityId={item.id} cityName={item.name} cityKey={item.key} deleteCity={handleDeleteCity} key={item.key} />
+				)}
+				keyExtractor={(item, index) => index.toString()}
+				ListFooterComponent={<View style={{ height: 100 }} />}
+			/>
 		</View>
 	);
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-	weatherBoxes: {
-		display: "flex",
-		flexDirection: "column",
-		gap: 10,
-		padding: 20,
-	},
-});

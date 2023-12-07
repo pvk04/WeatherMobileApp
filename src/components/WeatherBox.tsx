@@ -43,8 +43,8 @@ const WeatherBox: React.FC<WeatherBoxProps> = ({ cityId, cityName, cityKey, dele
 			<Pressable style={styles.closeButtonWrap} onPress={confirmation}>
 				<AntDesign name="closecircle" color="red" size={20} />
 			</Pressable>
-			<Text>{cityName}</Text>
-			<Text>{forecast?.Headline.Text}</Text>
+			<Text style={styles.cityName}>{cityName}</Text>
+			<Text>{forecast?.Headline?.Text}</Text>
 			<View style={styles.dayTypeForecast}>
 				<View>
 					<Text>Днем:</Text>
@@ -54,7 +54,7 @@ const WeatherBox: React.FC<WeatherBoxProps> = ({ cityId, cityName, cityKey, dele
 						}}
 						style={{ width: 50, height: 50 }}
 					/>
-					<Text>{forecast?.DailyForecasts[0].Day.IconPhrase}</Text>
+					<Text>{forecast?.DailyForecasts?.[0]?.Day?.IconPhrase}</Text>
 				</View>
 				<View>
 					<Text>Ночью:</Text>
@@ -64,7 +64,7 @@ const WeatherBox: React.FC<WeatherBoxProps> = ({ cityId, cityName, cityKey, dele
 						}}
 						style={{ width: 50, height: 50 }}
 					/>
-					<Text>{forecast?.DailyForecasts[0].Night.IconPhrase}</Text>
+					<Text>{forecast?.DailyForecasts[0]?.Night?.IconPhrase}</Text>
 				</View>
 			</View>
 		</View>
@@ -79,8 +79,9 @@ const styles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "column",
 		padding: 40,
-		alignItems: "center",
-		justifyContent: "center",
+		margin: 5,
+		// alignItems: "center",
+		// justifyContent: "center",
 		borderWidth: 1,
 		borderRadius: 5,
 		backgroundColor: "white",
@@ -96,5 +97,8 @@ const styles = StyleSheet.create({
 	},
 	dayTypeForecast: {
 		display: "flex",
+	},
+	cityName: {
+		fontWeight: "700",
 	},
 });
